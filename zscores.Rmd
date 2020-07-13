@@ -1,0 +1,52 @@
+---
+title: "Z distribution in R"
+output:
+  github_document: default
+  rmarkdown::github_document: default
+---
+
+The Z distribution is the normal distribution with mean equal to 0 and standard deviation equal to 1.
+
+dnorm() is the density function.  
+pnorm() is the cumulative distribution function.  
+qnorm() is the quantile function.  
+
+```{r z-dist-density-cumulative, echo=FALSE}
+library(ggplot2)
+library(stringr)
+ggplot(data.frame(x = c(-4, 4)), aes(x = x)) +
+  geom_function(fun = dnorm, aes(colour = 'dnorm')) +
+  geom_function(fun = pnorm, aes(colour = 'pnorm')) +
+  scale_colour_manual("Function", 
+                      values = c('dnorm' = "deeppink", 
+                                 'pnorm' = "dodgerblue3")) +
+  ylab(element_blank()) +
+  xlab(element_blank()) +
+  ggtitle('The density and cumulative distribution functions') +
+  theme_minimal()
+```
+
+```{r using-qnorm, echo=FALSE}
+low_limit = 0.025
+high_limit = 0.975
+low_zscore = round(qnorm(low_limit), digits = 3)
+high_zscore = round(qnorm(high_limit), digits = 3)
+low_str = str_c('qnorm(',toString(low_limit),')=',toString(low_zscore),')')
+high_str = str_c('qnorm(',toString(high_limit),')=',toString(high_zscore),')')
+ggplot(data.frame(x = c(-4, 4)), aes(x = x)) +
+  geom_function(fun = pnorm, aes(colour = 'pnorm')) +
+  geom_function(fun = dnorm, aes(colour = 'dnorm')) +
+  scale_colour_manual("Function", 
+                      values = c('dnorm' = "deeppink", 
+                                 'pnorm' = "dodgerblue3")) +
+  geom_vline(xintercept = low_zscore, linetype="dotted") +
+  geom_label(aes(low_zscore, 0.45, label = low_str), nudge_x = -0.7) +
+  geom_vline(xintercept = high_zscore, linetype="dotted") +
+  geom_label(aes(high_zscore, 0.65, label = high_str), nudge_x = 0.7) +
+  ylab(element_blank()) +
+  xlab(element_blank()) +
+  ggtitle('Finding z scores for the 95% confidence interval using qnorm()') +
+  theme_minimal()
+```
+
+
