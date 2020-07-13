@@ -1,2 +1,3 @@
-# z-scores-in-r
-Visualisations and calculations of z scores using R standard functions
+# Visualizations of standard distributions
+
+[Z distribution](zscores.md)
