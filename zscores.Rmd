@@ -2,7 +2,6 @@
 title: "Z distribution in R"
 output:
   github_document: default
-  rmarkdown::github_document: default
 ---
 
 The Z distribution is the normal distribution with mean equal to 0 and standard deviation equal to 1.
